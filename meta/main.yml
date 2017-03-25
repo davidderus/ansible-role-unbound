@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: "DAUPHANT Julien"
+  author: "DÉRUS David (Forked from DAUPHANT Julien role)"
   license: BSD
   min_ansible_version: 1.4
   platforms:
@@ -24,4 +24,3 @@ galaxy_info:
    - networking
    - system
 dependencies: []
-

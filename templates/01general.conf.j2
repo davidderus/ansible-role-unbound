@@ -14,6 +14,10 @@
     hide-identity: yes
     hide-version: yes
 
+{% if unbound_root_hints %}
+    root-hints: '/etc/unbound/root.hints'
+{% endif %}
+
 {% for private_address in unbound_private_address %}
     private-address: {{private_address}}
 {% endfor %}
