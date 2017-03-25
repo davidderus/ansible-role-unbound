@@ -7,19 +7,17 @@
 {% set domains = item.domains | default(unbound_domains) %}
 {% set inventory_domain_with_reverse = item.inventory_domain_with_reverse|default(unbound_inventory_domain_with_reverse) %}
 
+{% for domain in local_zones %}
+    local-zone: "{{domain}}." {{local_zone_type[domain] | default(unbound_default_local_zone)}}
+{% endfor %}
 
 {% for domain in domains_with_reverses %}
-    local-zone: "{{domain.domain_name}}." {{local_zone_type[domain.domain_name] | default(unbound_default_local_zone)}}
 {% for subdomain, ip in domain.iteritems() %}
 {% if subdomain != "domain_name" %}
     local-data: "{{ subdomain }}.{{ domain.domain_name }}. IN A {{ ip }}"
     local-data-ptr: "{{ ip }} {{ subdomain }}.{{ domain.domain_name }}"
 {% endif %}
 {% endfor %}
-{% endfor %}
-
-{% for domain in local_zones %}
-    local-zone: "{{domain}}." {{local_zone_type[domain] | default(unbound_default_local_zone)}}
 {% endfor %}
 
 {% for group, domain in inventory_domain.iteritems() %}
